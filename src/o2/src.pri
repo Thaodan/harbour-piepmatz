@@ -4,6 +4,21 @@ QT *= network
 !qtHaveModule(qml): QT *= script
 qtHaveModule(qml): QT *= qml
 
+!defined(TWITTER_CLIENT_ID, var) {
+    error("TWITTER_CLIENT_ID has to be defined to build o2 with twitter support")
+}
+
+
+!defined(TWITTER_CLIENT_SECRET, var) {
+   error("TWITTER_CLIENT_SECRET has to be defined to build o2 with twitter support")
+}
+
+!defined(TWITTER_STORE_DEFAULT_ENCRYPTION_KEY) {
+   error("TWITTER_DEFAULT_ENCRYPTION_KEY has to be defined to build o2 with twitter support")
+}
+
+QMAKE_SUBSTITUTES = $$PWD/o1twitterglobals.h.in
+
 INCLUDEPATH += $$PWD
 SOURCES += \
     $$PWD/o1.cpp \

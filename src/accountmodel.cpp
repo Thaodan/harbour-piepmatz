@@ -66,8 +66,8 @@ void AccountModel::initializeEnvironment()
 {
     O0SettingsStore *settings = new O0SettingsStore(encryptionKey);
     o1->setStore(settings);
-    o1->setClientId(TWITTER_CLIENT_ID);
-    o1->setClientSecret(TWITTER_CLIENT_SECRET);
+    o1->setClientId(twitter_client_id);
+    o1->setClientSecret(twitter_client_secret);
     connect(o1, &O1Twitter::pinRequestError, this, &AccountModel::handlePinRequestError);
     connect(o1, &O1Twitter::pinRequestSuccessful, this, &AccountModel::handlePinRequestSuccessful);
     connect(o1, &O1Twitter::linkingFailed, this, &AccountModel::handleLinkingFailed);
@@ -417,7 +417,7 @@ void AccountModel::obtainEncryptionKey()
     }
     QUuid uid(encryptionKey); //make sure this can be made into a valid QUUid
     if (uid.isNull()) {
-         encryptionKey = QString(TWITTER_STORE_DEFAULT_ENCRYPTION_KEY);
+         encryptionKey = QString(twitter_store_default_encryption_key);
     }
     qDebug() << "Using encryption key: " + encryptionKey;
 }
@@ -455,8 +455,8 @@ void AccountModel::initializeSecretIdentity()
         O0SettingsStore *secretIdentitySettingsStore = new O0SettingsStore(secretIdentitySettings, encryptionKey, this);
         O1Twitter *o1SecretIdentity = new O1Twitter(this);
         o1SecretIdentity->setStore(secretIdentitySettingsStore);
-        o1SecretIdentity->setClientId(TWITTER_CLIENT_ID);
-        o1SecretIdentity->setClientSecret(TWITTER_CLIENT_SECRET);
+        o1SecretIdentity->setClientId(twitter_client_id);
+        o1SecretIdentity->setClientSecret(twitter_client_secret);
         if (o1SecretIdentity->linked()) {
             qDebug() << "Secret identity successfully initialized!";
             secretIdentityRequestor = new O1Requestor(manager, o1SecretIdentity, this);
